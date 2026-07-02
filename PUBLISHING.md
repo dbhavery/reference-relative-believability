@@ -1,34 +1,33 @@
 # Publishing checklist
 
-This folder contains the public paper package for:
+This repository contains the public paper package for:
 
-**Reference-relative believability: identity, realism, and interactivity in photoreal human avatars**
+**Reference-relative believability in photoreal human avatars.**
+
+Two versions are maintained: a narrative portfolio / research-note essay
+(`reference-relative-believability.*`) and a formal submission manuscript
+(`reference-relative-believability-peer.*`).
 
 ## Build
 
 From the repo root:
 
 ```powershell
-.\paper\build_publication.ps1
+# portfolio / research-note version
+.\build_publication.ps1
+
+# peer-review / submission manuscript
+.\build_peer_review.ps1
 ```
 
-Outputs:
+Requires pandoc, Node.js, and Chrome or Edge.
 
-- `paper/reference-relative-believability.html` — self-contained web version.
-- `paper/reference-relative-believability.pdf` — print-ready PDF generated from the web version.
-- `paper/arxiv/reference-relative-believability.tex` — LaTeX source generated for arXiv/manual cleanup.
+Outputs (portfolio version shown; `-peer` variants for the manuscript):
 
-Peer-review manuscript build:
-
-```powershell
-.\paper\build_peer_review.ps1
-```
-
-Outputs:
-
-- `paper/reference-relative-believability-peer.html` — self-contained peer-review manuscript web version.
-- `paper/reference-relative-believability-peer.pdf` — plain preprint-style PDF.
-- `paper/arxiv/reference-relative-believability-peer.tex` — LaTeX handoff for venue/arXiv cleanup.
+- `reference-relative-believability.html` — self-contained web version.
+- `reference-relative-believability.pdf` — print-ready PDF generated from the web version.
+- `arxiv/reference-relative-believability.tex` — LaTeX source generated for arXiv/manual cleanup.
+- `arxiv/assets/two-tier-avatar-engine.png` — figure, copied in so the arXiv package is self-contained.
 
 ## Publish targets
 
@@ -39,9 +38,11 @@ Recommended order:
 3. Keep the peer manuscript separate from the portfolio version.
 4. Submit a cleaned LaTeX source package to arXiv or a workshop after final author review.
 
-## Required before arXiv
+## Before arXiv
 
-- Verify every citation one last time.
-- Replace any generated LaTeX rough edges from Pandoc.
-- Confirm the category choice: `cs.HC` primary; `cs.GR` and `cs.CV` cross-list candidates.
-- Decide whether to keep the architecture figure in the arXiv source or submit the text-only version.
+- Citations verified against arXiv/publishers (all references confirmed real, 2026-07-02).
+- The `arxiv/` folder is self-contained: upload the `.tex` together with `arxiv/assets/`.
+- `.tex` is Pandoc-generated — skim for rough edges before submission (LaTeX compiles server-side on arXiv).
+- Category choice: `cs.HC` primary; `cs.GR` and `cs.CV` cross-list candidates.
+- The submission manuscript is a framework + protocol paper with no empirical study; target a
+  preprint/workshop, or add a pilot before a reviewed venue.
