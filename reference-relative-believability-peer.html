@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Reference-relative believability - peer review
+manuscript</title>
+  <style>
+
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+</style>
+  <style type="text/css">:root {
+color-scheme: light;
+--ink: #111;
+--muted: #444;
+--rule: #b8b8b8;
+}
+* {
+box-sizing: border-box;
+}
+html {
+background: #f3f3f3;
+}
+body {
+max-width: 860px;
+margin: 0 auto;
+padding: 56px 64px 72px;
+background: #fff;
+color: var(--ink);
+font-family: "Times New Roman", Times, serif;
+font-size: 17px;
+line-height: 1.52;
+}
+h1,
+h2,
+h3 {
+font-family: Arial, Helvetica, sans-serif;
+letter-spacing: 0;
+}
+h1 {
+margin: 0 0 14px;
+font-size: 34px;
+line-height: 1.14;
+}
+h2 {
+margin: 34px 0 12px;
+padding-top: 14px;
+border-top: 1px solid var(--rule);
+font-size: 21px;
+line-height: 1.18;
+}
+h3 {
+margin: 24px 0 8px;
+font-size: 17px;
+line-height: 1.2;
+}
+p,
+ol,
+ul,
+blockquote {
+margin: 0 0 14px;
+}
+ol,
+ul {
+padding-left: 1.45em;
+}
+li {
+margin-bottom: 5px;
+}
+blockquote {
+padding-left: 1.1em;
+border-left: 3px solid var(--rule);
+color: var(--muted);
+}
+em {
+color: #222;
+}
+img {
+display: block;
+max-width: 100%;
+height: auto;
+margin: 22px auto 8px;
+border: 1px solid #d0d0d0;
+background: #fff;
+}
+p:has(img) {
+margin: 22px 0 6px;
+}
+h1 + p,
+h1 + p + p {
+margin-bottom: 8px;
+color: var(--muted);
+font-family: Arial, Helvetica, sans-serif;
+font-size: 13px;
+line-height: 1.35;
+}
+h2#abstract + p {
+font-size: 16px;
+line-height: 1.45;
+}
+h2#references ~ p {
+padding-left: 2.6em;
+text-indent: -2.6em;
+font-size: 14px;
+line-height: 1.32;
+}
+@page {
+margin: 0.72in;
+}
+@media print {
+html {
+background: #fff;
+}
+body {
+max-width: none;
+padding: 0;
+font-size: 10.8pt;
+line-height: 1.36;
+}
+h1 {
+font-size: 22pt;
+}
+h2 {
+break-after: avoid;
+font-size: 13.5pt;
+}
+h3 {
+break-after: avoid;
+font-size: 11.5pt;
+}
+h2#references {
+break-before: page;
+}
+img {
+max-height: 4.8in;
+page-break-inside: avoid;
+}
+h2#references ~ p {
+margin-bottom: 4pt;
+font-size: 8.9pt;
+line-height: 1.16;
+}
+}
+@media (max-width: 760px) {
+body {
+padding: 34px 24px 52px;
+font-size: 16px;
+}
+h1 {
+font-size: 28px;
+}
+}
+</style>
+</head>
+<body>
+<h1 id="reference-relative-believability-in-photoreal-human-avatars-synthetic-identity-as-a-systems-constraint">Reference-relative
+believability in photoreal human avatars: synthetic identity as a
+systems constraint</h1>
+<p><em>D. B. Havery. Manuscript draft, v0.3 (2026-07-02).</em>
+<em>Intended classification: Human-computer interaction; computer
+graphics; computer vision; applied AI systems. Keywords: photoreal
+avatars, synthetic human identity, full-body generation, conversational
+agents, talking-head synthesis, uncanny valley, familiar face
+perception, identity, system design.</em></p>
+<h2 id="abstract">Abstract</h2>
+<p>Photoreal avatars are usually treated as renderer problems: make the
+generated human sharp enough, stable enough, and temporally coherent
+enough to pass as video. That account is incomplete. Avatar quality is
+judged relative to the reference implied by the product. For a known
+real person, the reference is the viewer&#39;s stored model of that person&#39;s
+appearance and motion. For a persistent synthetic character, the
+reference is the system&#39;s canonical identity state: face, body, voice,
+styling range, provenance, and continuity contract. For a one-off
+synthetic stranger, the reference is the broader human category. I
+define this dependency as reference-relative believability and use
+ground-truth drift for deviation from the applicable reference. The
+distinction yields testable predictions: familiarity-dependent rejection
+for known real people, continuity-dependent rejection for persistent
+synthetic identities, full-body exposure effects, and latency-fidelity
+tradeoffs between live interaction and close inspection. It also changes
+system design. The split is not known person versus invented person. It
+is high-fidelity identity path versus live interaction path. A prototype
+Avatar Engine implements this boundary with character registries,
+renderer routing, a local real-time talking-head loop, and separate
+high-fidelity identity-planning work for synthetic human rosters. The
+implementation is not perceptual validation, but it shows that the
+boundary is concrete enough to build.</p>
+<h2 id="1-introduction">1. Introduction</h2>
+<p>Photoreal avatar systems now combine several capabilities that are
+often discussed separately: image generation, full-body rendering,
+talking-head animation, speech recognition, language models, speech
+synthesis, memory, and browser or device transport. The product promise
+is larger than a face that talks. A mature avatar engine should support
+assistants, support agents, virtual friends, presenters, content
+creation, and persistent virtual talent for modeling or campaign
+work.</p>
+<p>That product promise exposes a constraint that renderer-centric
+accounts miss. Most valuable avatars are not intended to copy one real
+person. They are authored synthetic identities. The target is still
+strict: a made-up character should be indistinguishable from a real
+human when that is the product claim, and it should remain the same
+character across sessions, poses, outfits, lighting, camera positions,
+and future model upgrades. The absence of a real-person original does
+not remove the reference problem. It moves the reference into the
+system.</p>
+<p>The build history that motivated this manuscript began with a
+reusable Avatar Engine: character + voice + model + persona as a live
+interface. Early iterations treated known-person likenesses, support
+agents, assistants, presenters, and full-body synthetic characters as
+variants of the same rendering problem. That abstraction failed.
+Digital-double reconstruction, blendshape bridges, procedural idle
+motion, single-image reenactment, and mouth-only lip-sync failed in
+different ways. Later full-body experiments widened the failure surface:
+skin texture, eye highlights, hands, hair, face pixel size, body
+proportions, garment interaction, pose, and lighting became as important
+as lips or teeth.</p>
+<p>I use reference-relative believability for the resulting principle.
+Avatar outputs are judged against the reference implied by the task. A
+known real person is judged against the viewer&#39;s stored model. A
+persistent synthetic character is judged against its canonical identity
+state. A one-off synthetic stranger is judged against the real-human
+category. Ground-truth drift is deviation from whichever reference
+applies.</p>
+<p>This distinction changes the architecture. The practical split is not
+real person versus invented person. It is high-fidelity identity path
+versus live interaction path. The former is for artifacts expected to
+survive high-definition, close human inspection. The latter is for
+conversational presence, where latency and turn-taking are part of
+quality. Known-person likeness is one strict case inside the
+high-fidelity path, not the whole problem.</p>
+<p>The claims are limited and testable:</p>
+<ol type="1">
+<li>It defines reference-relative believability and ground-truth drift
+for photoreal human avatars, including persistent synthetic
+identities.</li>
+<li>It predicts familiarity, continuity, and full-body exposure effects
+that a renderer-only account does not predict.</li>
+<li>It derives an identity-contract architecture that separates
+high-fidelity identity rendering from live interaction while preserving
+a shared conversational stack.</li>
+</ol>
+<h2 id="2-background-and-related-work">2. Background and related
+work</h2>
+<h3 id="21-uncanny-valley-and-cue-inconsistency">2.1 Uncanny valley and
+cue inconsistency</h3>
+<p>Mori&#39;s uncanny valley gives the familiar shape of the problem:
+affinity drops when an entity becomes nearly, but not fully, human [1].
+Later accounts sharpen the mechanism by emphasizing motion, category
+conflict, and prediction error [2, 3]. Those accounts explain why a
+stimulus can feel wrong. They do not, by themselves, explain why the
+same renderer can be tolerable in one product context and intolerable in
+another. The missing variable is not only in the pixels. It is the
+reference the output is expected to satisfy. Recent avatar studies are
+consistent with this: controlled experiments show that perceived
+naturalness and eeriness depend on the consistency of realism cues and
+on the interaction context rather than on raw fidelity alone [14], and a
+network meta-analysis of avatar-realism studies finds that the effect of
+appearance realism on perceptual experience is moderated by task and
+setting [15].</p>
+<h3 id="22-familiar-and-self-face-perception">2.2 Familiar and self-face
+perception</h3>
+<p>Familiar-face research supplies the known-person asymmetry. Familiar
+faces are processed differently from unfamiliar faces [4, 5], and people
+recognize them under degraded conditions that defeat unfamiliar-face
+recognition [6, 7]. Self-face processing is also special [8]. In
+recognition tasks, this robustness is an advantage. In synthesis, it can
+become a liability. The same stored model that lets a viewer recognize a
+poor recording of a familiar person also gives them a sharper target for
+rejecting an almost-correct reconstruction. Recent synthetic-media work
+supplies converging evidence: a systematic review of human deepfake
+detection finds that familiarity with the depicted person improves
+detection of manipulated faces, moderated by generation quality and by
+whether the depicted behavior is plausible for that person [16]. The
+known-person asymmetry this manuscript predicts is therefore not
+hypothetical; it already appears in detection studies as a familiarity
+advantage that a synthesis system must overcome.</p>
+<h3 id="23-talking-head-and-portrait-animation-systems">2.3 Talking-head
+and portrait animation systems</h3>
+<p>Talking-head systems generate or retarget facial motion from speech,
+images, video, or learned motion spaces [9-12]. Newer unified
+audio-to-video systems suggest that live avatar quality will keep
+improving [13]. The point here is not that these systems are weak. The
+point is that many systems optimize a narrow face crop or a short video
+window, while product-grade avatars may require full-body identity,
+garment realism, continuity across shoots, and close inspection. Small
+losses in skin texture, mouth detail, hand anatomy, head motion, gaze,
+or temporal consistency have different costs depending on the reference
+contract.</p>
+<h3 id="24-synthetic-identity-provenance-and-presence">2.4 Synthetic
+identity, provenance, and presence</h3>
+<p>Three further literatures bear on the reference argument. First, the
+deepfake and face-swap literature is, in effect, the study of identity
+judged against an external reference; its central finding — that viewers
+detect manipulation better when the identity is familiar [16] — is the
+known-person case of reference-relative believability stated in
+detection terms. Second, content-provenance efforts such as the C2PA
+Content Credentials specification attach cryptographically signed origin
+and edit history to media [17]. Provenance is orthogonal to perceptual
+realism, but it is the mechanism by which a system can bind an output to
+a declared reference and continuity contract, which is exactly what the
+architecture in Section 6 enforces at the renderer boundary. Third, work
+on avatar realism and social presence shows that acceptance depends on
+immersion, task, and interaction context, not fidelity in isolation [14,
+15], which is why this manuscript separates a close-inspection realism
+bar from a live-presence bar rather than collapsing both into one
+&quot;photoreal&quot; score.</p>
+<h2 id="3-definitions">3. Definitions</h2>
+<p>Five terms carry the argument.</p>
+<p><strong>Reference.</strong> A reference is the target against which
+the avatar is judged. It may be external viewer memory of a real person,
+an internal canonical identity state for a synthetic character, or the
+broader category of real human appearance and motion.</p>
+<p><strong>Known-person reference.</strong> A known-person reference
+exists when the product claim requires acceptance as a known real human.
+Examples include a user&#39;s own likeness, a company&#39;s real spokesperson,
+or a public figure. Deviations from the stored reference are identity
+errors, not merely artifacts.</p>
+<p><strong>Canonical synthetic identity.</strong> A canonical synthetic
+identity is an authored character with durable system state: face, body,
+voice, styling range, identity references, provenance, policy, and
+continuity thresholds. It is not copied from one real person, but it
+still has a reference once saved and reused.</p>
+<p><strong>One-off synthetic stranger.</strong> A one-off synthetic
+stranger is an invented human image or clip with no durable identity
+contract. It must still satisfy the real-human category bar, but it is
+not yet responsible for continuity across future uses.</p>
+<p><strong>Ground-truth drift.</strong> Ground-truth drift is deviation
+from the applicable reference. For a known person, drift is mismatch
+with viewer memory. For a canonical synthetic identity, drift is
+mismatch with the stored identity contract. For a one-off stranger,
+drift is failure to belong convincingly to the real-human category.</p>
+<p><strong>Reference-relative believability.</strong> Reference-relative
+believability is the claim that perceived avatar quality is a function
+of generated output quality, reference strength, task context, and
+inspection level. In simplified form:</p>
+<blockquote>
+<p>perceived believability = f(render quality, reference strength, task
+context, inspection level)</p>
+</blockquote>
+<p>This expression is schematic, not a fitted model. It names the
+factors the account holds responsible; their operational measures and
+the statistical model that relates them are given in Section 5.2 and
+5.3. The contribution is the set of factors and their predicted
+interactions, not a specific functional form.</p>
+<p>The claim does not imply that synthetic identities are automatically
+believable. They can fail through ordinary artifacts: unstable geometry,
+dead eyes, poor lip sync, incoherent lighting, waxy skin, broken hands,
+body inconsistency, or temporal jitter. The claim is narrower: different
+references create different error budgets.</p>
+<h2 id="4-hypotheses">4. Hypotheses</h2>
+<p>If the account is right, user ratings move in specific ways.</p>
+<p><strong>H1: familiarity gradient.</strong> For the same synthesis
+pipeline and artifact level, naturalness ratings will decrease as viewer
+familiarity with a depicted real person increases.</p>
+<p><strong>H2: self-recognition ceiling.</strong> Self-avatar clips will
+be rejected at fidelity levels that the same viewers accept for
+unfamiliar humans or newly authored synthetic identities.</p>
+<p><strong>H3: synthetic rescue with decay.</strong> A synthesis
+pipeline judged unacceptable for a known person&#39;s likeness will receive
+higher naturalness and acceptance ratings when the identity is replaced
+with a newly authored synthetic identity, holding rendering method,
+framing, prompt content, and voice quality as constant as possible. The
+advantage should shrink after the synthetic identity is made persistent
+and repeatedly shown to raters.</p>
+<p><strong>H4: continuity-contract penalty.</strong> Persistent
+synthetic identities will be rejected more often than one-off synthetic
+strangers when outputs drift from a canonical reference set, even if
+independent raters score the visible artifacts similarly.</p>
+<p><strong>H5: full-body exposure effect, with a reference
+interaction.</strong> Moving from headshot or bust framing to full-body
+framing will increase rejection because it exposes hands, hair, body
+proportions, garment interaction, face-pixel limits, pose, and lighting
+coherence. The non-obvious prediction is the interaction: the full-body
+penalty will be larger for persistent synthetic identities and known
+people than for one-off strangers, because the added surface must match
+a stored reference (a saved body state or viewer memory), not merely
+belong to the human category. A one-off stranger only has to look
+plausibly human at full body; a persistent identity has to look like the
+same body it established earlier.</p>
+<p><strong>H6: latency-fidelity trade.</strong> Live interaction paths
+will score better on perceived responsiveness and presence, while gated
+high-fidelity paths will score better on close-inspection realism and
+identity continuity.</p>
+<p>These hypotheses can fail. If viewer familiarity does not affect
+naturalness or &quot;not them&quot; judgments after controlling for visible
+artifact severity, the known-person mechanism is wrong or incomplete. If
+persistent synthetic identities are not penalized for continuity drift,
+the canonical-reference mechanism is wrong or incomplete.</p>
+<h2 id="5-evaluation-protocol">5. Evaluation protocol</h2>
+<p>A minimal study can use existing synthesis pipelines. The important
+move is to hold the renderer fixed and vary the identity relation
+between clip and rater.</p>
+<h3 id="51-stimuli">5.1 Stimuli</h3>
+<p>The stimulus set needs four classes:</p>
+<ol type="1">
+<li><strong>Known-person clips.</strong> Synthesized clips of subjects
+for whom a subset of raters has direct familiarity.</li>
+<li><strong>Unfamiliar real-person clips.</strong> Synthesized clips of
+real people unknown to the raters.</li>
+<li><strong>New synthetic-identity clips.</strong> Synthesized clips of
+authored identities with no prior exposure to raters.</li>
+<li><strong>Persistent synthetic-identity clips.</strong> Synthesized
+clips or images of authored identities after raters have been shown a
+canonical reference set.</li>
+</ol>
+<p>Duration, framing, lighting, prompt content, voice quality, and
+output resolution are held constant where possible. The study should
+include both headshot and full-body conditions. If known-person voice
+cloning is used, voice familiarity must be modeled separately because
+voice carries its own reference.</p>
+<h3 id="52-measures">5.2 Measures</h3>
+<p>Each rater supplies:</p>
+<ol type="1">
+<li>Naturalness rating.</li>
+<li>Identity acceptance rating for known-person and persistent synthetic
+clips.</li>
+<li>&quot;Not quite them&quot; judgment for known-person clips and &quot;not the same
+character&quot; judgment for persistent synthetic clips.</li>
+<li>Comfort or uncanny-valley rating.</li>
+<li>Free-text artifact description.</li>
+<li>Familiarity rating for the depicted identity or exposure count for
+synthetic identities.</li>
+<li>Confidence in judgment.</li>
+</ol>
+<p>Artifact severity is rated by a separate group that does not know the
+depicted identities. That separates visible defects from
+familiarity-driven rejection.</p>
+<h3 id="53-analysis">5.3 Analysis</h3>
+<p>The primary model treats acceptance as a function of identity
+condition, viewer familiarity or exposure, artifact severity, framing,
+inspection level, and their interactions. A mixed-effects model is the
+natural fit because both clips and raters repeat. The key tests are
+whether familiarity predicts lower acceptance for known-person clips
+after artifact severity is included, and whether canonical exposure
+predicts lower tolerance for continuity drift in persistent synthetic
+identities.</p>
+<h3 id="54-expected-result-pattern">5.4 Expected result pattern</h3>
+<p>The reference-relative account predicts the following ordering, from
+easiest to hardest, assuming comparable artifact severity:</p>
+<ol type="1">
+<li>One-off synthetic stranger.</li>
+<li>Unfamiliar real person.</li>
+<li>Newly authored synthetic identity.</li>
+<li>Persistent synthetic identity with a canonical reference set.</li>
+<li>Weakly familiar public figure.</li>
+<li>Personally familiar person.</li>
+<li>Self-avatar.</li>
+</ol>
+<p>This ordering is not a moral or legal ranking. It is a perceptual
+error-budget ranking. Safety, consent, provenance, and labeling
+requirements may be strict in every tier.</p>
+<h2 id="6-system-architecture">6. System architecture</h2>
+<p>In an implementation, the claim becomes a router. The conversational
+stack can be shared, but the render path is selected by identity
+contract, inspection bar, latency target, and provenance
+requirement.</p>
+<p><img role="img" aria-label="Reference-aware Avatar Engine architecture. Shared conversational systems feed an identity contract router; high-fidelity identities use gated render paths, while live interaction surfaces use low-latency render paths." src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNjAwIiBoZWlnaHQ9IjkwMCIgdmlld0JveD0iMCAwIDE2MDAgOTAwIiByb2xlPSJpbWciIGFyaWEtbGFiZWxsZWRieT0idGl0bGUgZGVzYyI+CiAgPHRpdGxlIGlkPSJ0aXRsZSI+UmVmZXJlbmNlLWF3YXJlIEF2YXRhciBFbmdpbmUgYXJjaGl0ZWN0dXJlPC90aXRsZT4KICA8ZGVzYyBpZD0iZGVzYyI+U2hhcmVkIGNvbnZlcnNhdGlvbmFsIHN5c3RlbXMgZmVlZCBhbiBpZGVudGl0eSBjb250cmFjdCByb3V0ZXIuIEhpZ2gtZmlkZWxpdHkgaWRlbnRpdGllcyB1c2UgYSBnYXRlZCByZW5kZXIgcGF0aC4gTGl2ZSBpbnRlcmFjdGlvbiBzdXJmYWNlcyB1c2UgYSBsb3ctbGF0ZW5jeSByZW5kZXIgcGF0aC48L2Rlc2M+CiAgPGRlZnM+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9InBhcGVyIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iI2ZiZmFmNiIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNlYmU3ZGMiLz4KICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImRhcmsiIHgxPSIwIiB5MT0iMCIgeDI9IjEiIHkyPSIxIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjMTQxNDE0Ii8+CiAgICAgIDxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzJiMjkyNiIvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICAgIDxmaWx0ZXIgaWQ9InNoYWRvdyIgeD0iLTglIiB5PSItOCUiIHdpZHRoPSIxMTYlIiBoZWlnaHQ9IjEyMCUiPgogICAgICA8ZmVEcm9wU2hhZG93IGR4PSIwIiBkeT0iMTgiIHN0ZERldmlhdGlvbj0iMTgiIGZsb29kLWNvbG9yPSIjMTExIiBmbG9vZC1vcGFjaXR5PSIwLjE2Ii8+CiAgICA8L2ZpbHRlcj4KICAgIDxtYXJrZXIgaWQ9ImFycm93IiB2aWV3Qm94PSIwIDAgMTAgMTAiIHJlZlg9IjguNSIgcmVmWT0iNSIgbWFya2VyV2lkdGg9IjgiIG1hcmtlckhlaWdodD0iOCIgb3JpZW50PSJhdXRvLXN0YXJ0LXJldmVyc2UiPgogICAgICA8cGF0aCBkPSJNIDAgMCBMIDEwIDUgTCAwIDEwIHoiIGZpbGw9IiNmMTVhMjQiLz4KICAgIDwvbWFya2VyPgogICAgPHN0eWxlPgogICAgICAuYmcgeyBmaWxsOiB1cmwoI3BhcGVyKTsgfQogICAgICAubGFiZWwgeyBmb250OiA3MDAgMjZweCBBcmlhbCwgSGVsdmV0aWNhLCBzYW5zLXNlcmlmOyBmaWxsOiAjMTUxNTE1OyBsZXR0ZXItc3BhY2luZzogLjAyZW07IH0KICAgICAgLnNtYWxsIHsgZm9udDogNjAwIDE4cHggQXJpYWwsIEhlbHZldGljYSwgc2Fucy1zZXJpZjsgZmlsbDogIzViNTc1MTsgfQogICAgICAubWljcm8geyBmb250OiA3MDAgMTVweCBBcmlhbCwgSGVsdmV0aWNhLCBzYW5zLXNlcmlmOyBmaWxsOiAjNzc3MTZhOyBsZXR0ZXItc3BhY2luZzogLjA4ZW07IHRleHQtdHJhbnNmb3JtOiB1cHBlcmNhc2U7IH0KICAgICAgLnRpdGxlIHsgZm9udDogODAwIDQ2cHggQXJpYWwsIEhlbHZldGljYSwgc2Fucy1zZXJpZjsgZmlsbDogIzExMTsgfQogICAgICAub3JhbmdlIHsgZmlsbDogI2YxNWEyNDsgfQogICAgICAud2hpdGUgeyBmaWxsOiAjZmZmZGY4OyB9CiAgICAgIC5saW5lIHsgc3Ryb2tlOiAjZjE1YTI0OyBzdHJva2Utd2lkdGg6IDY7IGZpbGw6IG5vbmU7IG1hcmtlci1lbmQ6IHVybCgjYXJyb3cpOyB9CiAgICAgIC5saW5lLW11dGVkIHsgc3Ryb2tlOiAjYmNiNmFkOyBzdHJva2Utd2lkdGg6IDM7IGZpbGw6IG5vbmU7IH0KICAgICAgLm5vZGUgeyBmaWxsOiAjZmZmZGY4OyBzdHJva2U6ICNkOWQzYzk7IHN0cm9rZS13aWR0aDogMjsgcng6IDI2OyBmaWx0ZXI6IHVybCgjc2hhZG93KTsgfQogICAgICAubm9kZS1kYXJrIHsgZmlsbDogdXJsKCNkYXJrKTsgc3Ryb2tlOiAjMzczMjJkOyBzdHJva2Utd2lkdGg6IDI7IHJ4OiAyODsgZmlsdGVyOiB1cmwoI3NoYWRvdyk7IH0KICAgICAgLm5vZGUtd2FybiB7IGZpbGw6ICNmZmY3ZjA7IHN0cm9rZTogI2YxNWEyNDsgc3Ryb2tlLXdpZHRoOiAzOyByeDogMjY7IGZpbHRlcjogdXJsKCNzaGFkb3cpOyB9CiAgICAgIC5kYXJrLXRleHQgeyBmaWxsOiAjZmZmN2VkOyB9CiAgICAgIC5kYXJrLXNtYWxsIHsgZmlsbDogI2Q4ZDFjODsgfQogICAgPC9zdHlsZT4KICA8L2RlZnM+CgogIDxyZWN0IGNsYXNzPSJiZyIgd2lkdGg9IjE2MDAiIGhlaWdodD0iOTAwIi8+CiAgPHRleHQgY2xhc3M9Im1pY3JvIG9yYW5nZSIgeD0iOTIiIHk9IjkyIj5SZWZlcmVuY2UtcmVsYXRpdmUgYmVsaWV2YWJpbGl0eTwvdGV4dD4KICA8dGV4dCBjbGFzcz0idGl0bGUiIHg9IjkyIiB5PSIxNDgiPlJlZmVyZW5jZS1hd2FyZSBBdmF0YXIgRW5naW5lPC90ZXh0PgogIDx0ZXh0IGNsYXNzPSJzbWFsbCIgeD0iOTQiIHk9IjE5MCI+VGhlIHJlbmRlcmVyIGlzIHNlbGVjdGVkIGJ5IGlkZW50aXR5IGNvbnRyYWN0LCBpbnNwZWN0aW9uIGJhciwgYW5kIGxhdGVuY3kgdGFyZ2V0LjwvdGV4dD4KCiAgPHJlY3QgY2xhc3M9Im5vZGUiIHg9Ijk2IiB5PSIyNTUiIHdpZHRoPSIzMTAiIGhlaWdodD0iMjEwIi8+CiAgPHRleHQgY2xhc3M9Im1pY3JvIG9yYW5nZSIgeD0iMTI4IiB5PSIzMDkiPklucHV0PC90ZXh0PgogIDx0ZXh0IGNsYXNzPSJsYWJlbCIgeD0iMTI4IiB5PSIzNTYiPlVzZXIgcmVxdWVzdDwvdGV4dD4KICA8dGV4dCBjbGFzcz0ic21hbGwiIHg9IjEyOCIgeT0iMzkzIj5xdWVzdGlvbiwgc2hvb3QsIHBlcnNvbmEsPC90ZXh0PgogIDx0ZXh0IGNsYXNzPSJzbWFsbCIgeD0iMTI4IiB5PSI0MjEiPnZvaWNlLCBzZWxlY3RlZCBpZGVudGl0eTwvdGV4dD4KCiAgPHBhdGggY2xhc3M9ImxpbmUiIGQ9Ik0gNDIwIDM2MCBDIDQ3NCAzNjAsIDQ5OCAzNjAsIDU0OCAzNjAiLz4KCiAgPHJlY3QgY2xhc3M9Im5vZGUtZGFyayIgeD0iNTYwIiB5PSIyNTUiIHdpZHRoPSI0MjAiIGhlaWdodD0iMjEwIi8+CiAgPHRleHQgY2xhc3M9Im1pY3JvIG9yYW5nZSIgeD0iNTk2IiB5PSIzMDkiPlNoYXJlZCBjb252ZXJzYXRpb25hbCBzdGFjazwvdGV4dD4KICA8dGV4dCBjbGFzcz0ibGFiZWwgZGFyay10ZXh0IiB4PSI1OTYiIHk9IjM1NiI+QVNSIC8gTExNIC8gVFRTPC90ZXh0PgogIDx0ZXh0IGNsYXNzPSJzbWFsbCBkYXJrLXNtYWxsIiB4PSI1OTYiIHk9IjM5MyI+cHJvdmlkZXIgcm91dGluZywgdm9pY2UgcmVnaXN0cnksPC90ZXh0PgogIDx0ZXh0IGNsYXNzPSJzbWFsbCBkYXJrLXNtYWxsIiB4PSI1OTYiIHk9IjQyMSI+bWVtb3J5LCB0b29scywgdHJhbnNwb3J0PC90ZXh0PgoKICA8cGF0aCBjbGFzcz0ibGluZSIgZD0iTSA5OTggMzYwIEMgMTA0NiAzNjAsIDEwNzggMzYwLCAxMTI4IDM2MCIvPgoKICA8cmVjdCBjbGFzcz0ibm9kZS13YXJuIiB4PSIxMTQwIiB5PSIyNTUiIHdpZHRoPSIzMzAiIGhlaWdodD0iMjEwIi8+CiAgPHRleHQgY2xhc3M9Im1pY3JvIG9yYW5nZSIgeD0iMTE3NCIgeT0iMzA5Ij5JZGVudGl0eSBjb250cmFjdCByb3V0ZXI8L3RleHQ+CiAgPHRleHQgY2xhc3M9ImxhYmVsIiB4PSIxMTc0IiB5PSIzNTYiPlJlZmVyZW5jZSArIGJhcjwvdGV4dD4KICA8dGV4dCBjbGFzcz0ic21hbGwiIHg9IjExNzQiIHk9IjM5MyI+Y2Fub25pY2FsIGlkZW50aXR5LCBmdWxsLWJvZHk8L3RleHQ+CiAgPHRleHQgY2xhc3M9InNtYWxsIiB4PSIxMTc0IiB5PSI0MjEiPmRldGFpbCwgbGF0ZW5jeSwgcHJvdmVuYW5jZTwvdGV4dD4KCiAgPHBhdGggY2xhc3M9ImxpbmUiIGQ9Ik0gMTMwNSA0NzAgQyAxMzA1IDUyNSwgODEwIDUxMiwgNjYwIDU3OCIvPgogIDxwYXRoIGNsYXNzPSJsaW5lIiBkPSJNIDEzNzAgNDcwIEMgMTM3MCA1MjQsIDExMjAgNTIzLCAxMDc2IDU3OCIvPgoKICA8cmVjdCBjbGFzcz0ibm9kZSIgeD0iMTEwIiB5PSI1OTAiIHdpZHRoPSI2MDAiIGhlaWdodD0iMjQ2Ii8+CiAgPHRleHQgY2xhc3M9Im1pY3JvIG9yYW5nZSIgeD0iMTQ4IiB5PSI2NDIiPkhpZ2gtZmlkZWxpdHkgaWRlbnRpdHkgcGF0aDwvdGV4dD4KICA8dGV4dCBjbGFzcz0ibGFiZWwiIHg9IjE0OCIgeT0iNjg1Ij5Lbm93biBvciBmaXhlZCBzeW50aGV0aWMgaHVtYW48L3RleHQ+CiAgPHRleHQgY2xhc3M9InNtYWxsIiB4PSIxNDgiIHk9IjcyNCI+Q2Fub25pY2FsIGZhY2UvYm9keSBzdGF0ZSwgaGlnaC1yZXMgcmVuZGVyLDwvdGV4dD4KICA8dGV4dCBjbGFzcz0ic21hbGwiIHg9IjE0OCIgeT0iNzUyIj5yZWFsaXNtIGFuZCBjb250aW51aXR5IGdhdGVzLjwvdGV4dD4KICA8cGF0aCBjbGFzcz0ibGluZS1tdXRlZCIgZD0iTSAxNDggNzY4IEggNjY2Ii8+CiAgPHRleHQgY2xhc3M9InNtYWxsIiB4PSIxNDgiIHk9Ijc5NSI+R29hbDogcGFzcyBjbG9zZSBodW1hbiBpbnNwZWN0aW9uLCBhY2NlcHQgc2xvd2VyIHBhdGhzLjwvdGV4dD4KCiAgPHJlY3QgY2xhc3M9Im5vZGUiIHg9Ijg5MCIgeT0iNTkwIiB3aWR0aD0iNjAwIiBoZWlnaHQ9IjI0NiIvPgogIDx0ZXh0IGNsYXNzPSJtaWNybyBvcmFuZ2UiIHg9IjkyOCIgeT0iNjQyIj5MaXZlIGludGVyYWN0aW9uIHBhdGg8L3RleHQ+CiAgPHRleHQgY2xhc3M9ImxhYmVsIiB4PSI5MjgiIHk9IjY4NSI+QXNzaXN0YW50IG9yIGNvbXBhbmlvbiBwcmVzZW5jZTwvdGV4dD4KICA8dGV4dCBjbGFzcz0ic21hbGwiIHg9IjkyOCIgeT0iNzI0Ij5Mb3ctbGF0ZW5jeSBhdWRpby1kcml2ZW4gcmVuZGVyZXIgb3ZlcjwvdGV4dD4KICA8dGV4dCBjbGFzcz0ic21hbGwiIHg9IjkyOCIgeT0iNzUyIj5hbiBhcHByb3ZlZCBzeW50aGV0aWMgb3IgcmVjb3JkZWQgc3VyZmFjZS48L3RleHQ+CiAgPHBhdGggY2xhc3M9ImxpbmUtbXV0ZWQiIGQ9Ik0gOTI4IDc2OCBIIDE0NDYiLz4KICA8dGV4dCBjbGFzcz0ic21hbGwiIHg9IjkyOCIgeT0iNzk1Ij5Hb2FsOiBhbnN3ZXIgbGl2ZSwgZGlzY2xvc2UgbGltaXRzLCBwcmVzZXJ2ZSBjb250aW51aXR5LjwvdGV4dD4KPC9zdmc+Cg==" alt="Reference-aware Avatar Engine architecture. Shared conversational systems feed an identity contract router; high-fidelity identities use gated render paths, while live interaction surfaces use low-latency render paths." /></p>
+<p><em>Figure 1. Reference-aware Avatar Engine architecture. The
+conversational stack is shared, but the renderer is selected by identity
+contract, inspection bar, latency target, and provenance
+requirement.</em></p>
+<p>The shared stack includes speech recognition, language model, tools,
+memory, voice selection, transport, and policy controls. None of these
+components necessarily changes the identity surface. The identity
+contract router is the boundary where visual identity becomes a systems
+constraint.</p>
+<p>High-fidelity identity requests route to a gated render path. For
+known people, that may mean recorded footage, constrained playback, or
+narrow edits that preserve the recorded identity surface. For canonical
+synthetic identities, it means high-resolution generation, full-body
+realism gates, continuity checks, provenance, and human review for
+uncertain cases. This path may sacrifice latency to protect identity and
+close-inspection realism.</p>
+<p>Live interaction requests route to a low-latency path: talking-head
+renderers, audio-driven animation, pre-rendered idle clips, or streaming
+video chunks. This path optimizes responsiveness and presence while
+preserving the character registry and policy contract. It should not be
+represented as proof of full-body indistinguishability unless it clears
+that separate gate.</p>
+<p>Registry design changes too: a character carries identity provenance,
+canonical state, allowed renderers, voice policy, continuity thresholds,
+disclosure rules, and safety constraints. This prevents a high-fidelity
+identity from entering an inappropriate renderer and prevents a
+low-latency surface from making claims it cannot satisfy.</p>
+<p>Figure 1 draws the shared stack as a cascade of speech recognition,
+language model, and speech synthesis, but the argument does not depend
+on that decomposition. Emerging end-to-end systems collapse the cascade
+into a single model that jointly perceives and generates synchronized
+audio and video at sub-second latency [13]. Such a system replaces the
+low-latency render path, not the identity contract. Reference-relative
+believability is a claim about the relation between an output and the
+reference a viewer or system holds; it is indifferent to whether that
+output is produced by a cascade or by one unified model. A unified model
+still needs to be told which identity it may present, whether the result
+must clear a full-body close-inspection gate, and which provenance and
+continuity rules apply. The router therefore sits above the renderer
+regardless of the renderer&#39;s internal architecture, and a more capable
+live renderer raises the live-presence score without, by itself,
+discharging the separate high-fidelity identity bar.</p>
+<h2 id="7-implementation-feasibility">7. Implementation feasibility</h2>
+<p>A private Avatar Engine prototype implements the split. This section
+is a feasibility argument, not perceptual validation and not an
+independently verifiable benchmark: it shows that the identity boundary
+can be expressed as concrete data contracts and enforced in code, which
+is what distinguishes an architectural claim from a slide label. Because
+the prototype is not yet public, the details below should be read as an
+existence argument that the boundary is buildable, not as a measured
+result. The relevant details are concrete:</p>
+<ol type="1">
+<li>The Python package defines character, voice, language-model, and
+renderer registries.</li>
+<li>Character records carry tier and visibility constraints.</li>
+<li>Renderers sit behind a fixed <code>RenderEngine</code> provider
+protocol.</li>
+<li>A Ditto-backed provider drives the low-latency talking-head
+path.</li>
+<li>A local conversational loop connects speech recognition, an Ollama
+language model, Piper voice synthesis, and the renderer.</li>
+<li>TensorRT acceleration on the Ditto path reaches the real-time
+interaction tier on local GPU hardware.</li>
+<li>A resident worker keeps the renderer warm, and a streaming path
+renders answer chunks as they complete.</li>
+<li>Separate high-fidelity planning work defines synthetic identity
+creation, roster state, full-body variation grids, realism gates,
+continuity services, provenance records, and human review.</li>
+</ol>
+<p>The prototype does not close the product. Full-duplex barge-in, idle
+motion, latency tuning, full-body video, garment transfer, and
+large-scale perceptual validation remain open engineering work. The
+important point is narrower: the identity split is not a slide label. It
+is represented in data contracts and enforced at the registry and
+renderer boundary.</p>
+<h2 id="8-design-implications">8. Design implications</h2>
+<p>The identity-contract split changes the product specification.
+&quot;Photoreal&quot; is not enough. A requirement has to state which reference
+the avatar must satisfy: known-person memory, canonical synthetic
+identity, or one-off human realism.</p>
+<p>It also changes benchmarks. Category-level realism, canonical
+identity continuity, known-person likeness, full-body close-inspection
+realism, and conversational presence belong in separate scores. A
+renderer can be good enough for a live assistant and still unacceptable
+for a full-body virtual model. Conversely, a slower gated render path
+can be correct for high-fidelity identity work even if it gives up
+real-time interaction.</p>
+<p>Identity provenance belongs in the render contract. The renderer
+needs to know whether it is allowed to synthesize the identity surface,
+whether the output must pass full-body gates, whether the character is
+persistent, and which disclosure requirements apply. This is not a
+user-interface detail; it is part of the safety boundary.</p>
+<h2 id="9-safety-and-ethics">9. Safety and ethics</h2>
+<p>Reference-relative believability is not an argument for easier
+deployment of synthetic people. Synthetic humans can manipulate,
+mislead, create false impressions of agency, or be misused even when
+they do not copy one real person. Known-person likeness raises
+additional consent and impersonation concerns because it invokes an
+external real identity.</p>
+<p>The identity distinction belongs in the system, not in copy or policy
+language alone. Known-person identities require provenance, consent,
+disclosure, and renderer constraints. Signed content-provenance
+standards such as C2PA Content Credentials [17] give a concrete
+transport for the provenance and disclosure fields the identity contract
+carries, though they do not by themselves prevent misuse and can be
+stripped in re-encoding. Persistent synthetic identities still need
+labeling, source-safety rules, similarity checks, age safeguards,
+continuity records, and audit logs, especially in support, sales,
+education, medical, modeling, or companion contexts.</p>
+<p>The architecture also reduces accidental misuse. If identity
+contracts constrain renderer access, a product is less likely to convert
+a real person&#39;s likeness into an unconstrained speaking agent or let a
+persistent synthetic identity drift through configuration changes.</p>
+<h2 id="10-limitations">10. Limitations</h2>
+<p>This manuscript does not report a completed human-subjects study. Its
+contribution is a framework, a set of falsifiable predictions, and a
+pre-registration-ready evaluation protocol (Section 5), not an empirical
+result; it should be read and judged as such. The hypotheses are
+testable, but the empirical curve remains open. The proposed gradients
+may vary by culture, task, screen size, exposure duration, artifact
+type, and inspection condition.</p>
+<p>The distinction between one-off and persistent synthetic identities
+can also blur. A synthetic character used for a long time may become
+familiar to users, creating a new viewer-side reference. A public
+synthetic character may acquire a stable identity that future renderers
+must preserve. The tier model should therefore be treated as a starting
+condition and governance rule, not a permanent guarantee.</p>
+<p>Future renderers may reduce visible drift enough that the thresholds
+move. The claim does not depend on today&#39;s artifacts being permanent. It
+depends on the comparison relation between output and viewer. If that
+relation stops predicting acceptance, the theory has to change.</p>
+<h2 id="11-conclusion">11. Conclusion</h2>
+<p>Photoreal avatars are not one fidelity problem. A one-off synthetic
+stranger must look like a real human. A persistent synthetic identity
+must also remain the same character across contexts. A known-person
+likeness must remain correct relative to viewer memory. A live assistant
+must answer quickly enough to feel present. These requirements impose
+different error budgets and should not be routed through one
+undifferentiated renderer. Reference-relative believability explains why
+the practical architecture should split high-fidelity identity work from
+live interaction. That design does not solve every avatar problem, but
+it avoids forcing one system to satisfy incompatible perceptual
+contracts.</p>
+<h2 id="references">References</h2>
+<p>[1] M. Mori, &quot;The uncanny valley,&quot; <em>Energy</em>, vol. 7, no. 4,
+pp. 33-35, 1970. Trans. K. F. MacDorman and N. Kageki, <em>IEEE Robotics
+&amp; Automation Magazine</em>, vol. 19, no. 2, pp. 98-100, 2012.</p>
+<p>[2] A. P. Saygin, T. Chaminade, H. Ishiguro, J. Driver, and C. Frith,
+&quot;The thing that should not be: predictive coding and the uncanny valley
+in perceiving human and humanoid robot actions,&quot; <em>Social Cognitive
+and Affective Neuroscience</em>, vol. 7, no. 4, pp. 413-422, 2012.</p>
+<p>[3] R. K. Moore, &quot;A Bayesian explanation of the &#39;uncanny valley&#39;
+effect and related psychological phenomena,&quot; <em>Scientific
+Reports</em>, vol. 2, art. 864, 2012.</p>
+<p>[4] V. Bruce and A. Young, &quot;Understanding face recognition,&quot;
+<em>British Journal of Psychology</em>, vol. 77, no. 3, pp. 305-327,
+1986.</p>
+<p>[5] R. A. Johnston and A. J. Edmonds, &quot;Familiar and unfamiliar face
+recognition: a review,&quot; <em>Memory</em>, vol. 17, no. 5, pp. 577-596,
+2009.</p>
+<p>[6] A. M. Burton, S. Wilson, M. Cowan, and V. Bruce, &quot;Face
+recognition in poor-quality video: evidence from security surveillance,&quot;
+<em>Psychological Science</em>, vol. 10, no. 3, pp. 243-248, 1999.</p>
+<p>[7] P. J. B. Hancock, V. Bruce, and A. M. Burton, &quot;Recognition of
+unfamiliar faces,&quot; <em>Trends in Cognitive Sciences</em>, vol. 4, no. 9,
+pp. 330-337, 2000.</p>
+<p>[8] F. Tong and K. Nakayama, &quot;Robust representations for faces:
+evidence from visual search,&quot; <em>Journal of Experimental Psychology:
+Human Perception and Performance</em>, vol. 25, no. 4, pp. 1016-1035,
+1999.</p>
+<p>[9] K. R. Prajwal, R. Mukhopadhyay, V. P. Namboodiri, and C. V.
+Jawahar, &quot;A lip sync expert is all you need for speech to lip generation
+in the wild&quot; (Wav2Lip), in <em>Proc. ACM Int. Conf. Multimedia
+(MM)</em>, 2020, pp. 484-492.</p>
+<p>[10] J. Guo et al., &quot;LivePortrait: efficient portrait animation with
+stitching and retargeting control,&quot; arXiv:2407.03168, 2024.</p>
+<p>[11] T. Li, R. Zheng, M. Yang, J. Chen, and M. Yang, &quot;Ditto:
+motion-space diffusion for controllable realtime talking head
+synthesis,&quot; arXiv:2411.19509, 2024 (ACM MM 2025).</p>
+<p>[12] S. Xu et al., &quot;VASA-1: lifelike audio-driven talking faces
+generated in real time,&quot; in <em>Advances in Neural Information
+Processing Systems (NeurIPS)</em>, 2024. arXiv:2404.10667.</p>
+<p>[13] Wan Team, Alibaba Group, &quot;Wan-Streamer v0.1: end-to-end
+real-time interactive foundation models,&quot; arXiv:2606.25041, 2026.</p>
+<p>[14] T. D. Do, R. P. McMahan, and P. J. Wisniewski, &quot;A new uncanny
+valley? The effects of speech fidelity and human listener gender on
+social perceptions of a virtual-human speaker,&quot; in <em>Proc. CHI Conf.
+Human Factors in Computing Systems (CHI &#39;22)</em>, 2022.</p>
+<p>[15] Z. Tao, Y. Liu, J. Qiu, and S. Li, &quot;Impact of virtual avatar
+appearance realism on perceptual interaction experience: a network
+meta-analysis,&quot; <em>Frontiers in Psychology</em>, vol. 16, art. 1624975,
+2025.</p>
+<p>[16] K. Somoray, D. Miller, and M. Holmes, &quot;Human performance in
+deepfake detection: a systematic review,&quot; <em>Human Behavior and
+Emerging Technologies</em>, 2025, doi:10.1155/hbe2/1833228.</p>
+<p>[17] Coalition for Content Provenance and Authenticity, &quot;C2PA
+technical specification (Content Credentials),&quot; version 2.2, 2025.
+[Online]. Available: <a href="https://c2pa.org/specifications/">https://c2pa.org/specifications/</a></p>
+</body>
+</html>

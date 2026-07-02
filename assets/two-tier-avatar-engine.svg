@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Reference-aware Avatar Engine architecture</title>
+  <desc id="desc">Shared conversational systems feed an identity contract router. High-fidelity identities use a gated render path. Live interaction surfaces use a low-latency render path.</desc>
+  <defs>
+    <linearGradient id="paper" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fbfaf6"/>
+      <stop offset="1" stop-color="#ebe7dc"/>
+    </linearGradient>
+    <linearGradient id="dark" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#141414"/>
+      <stop offset="1" stop-color="#2b2926"/>
+    </linearGradient>
+    <filter id="shadow" x="-8%" y="-8%" width="116%" height="120%">
+      <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#111" flood-opacity="0.16"/>
+    </filter>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#f15a24"/>
+    </marker>
+    <style>
+      .bg { fill: url(#paper); }
+      .label { font: 700 26px Arial, Helvetica, sans-serif; fill: #151515; letter-spacing: .02em; }
+      .small { font: 600 18px Arial, Helvetica, sans-serif; fill: #5b5751; }
+      .micro { font: 700 15px Arial, Helvetica, sans-serif; fill: #77716a; letter-spacing: .08em; text-transform: uppercase; }
+      .title { font: 800 46px Arial, Helvetica, sans-serif; fill: #111; }
+      .orange { fill: #f15a24; }
+      .white { fill: #fffdf8; }
+      .line { stroke: #f15a24; stroke-width: 6; fill: none; marker-end: url(#arrow); }
+      .line-muted { stroke: #bcb6ad; stroke-width: 3; fill: none; }
+      .node { fill: #fffdf8; stroke: #d9d3c9; stroke-width: 2; rx: 26; filter: url(#shadow); }
+      .node-dark { fill: url(#dark); stroke: #37322d; stroke-width: 2; rx: 28; filter: url(#shadow); }
+      .node-warn { fill: #fff7f0; stroke: #f15a24; stroke-width: 3; rx: 26; filter: url(#shadow); }
+      .dark-text { fill: #fff7ed; }
+      .dark-small { fill: #d8d1c8; }
+    </style>
+  </defs>
+
+  <rect class="bg" width="1600" height="900"/>
+  <text class="micro orange" x="92" y="92">Reference-relative believability</text>
+  <text class="title" x="92" y="148">Reference-aware Avatar Engine</text>
+  <text class="small" x="94" y="190">The renderer is selected by identity contract, inspection bar, and latency target.</text>
+
+  <rect class="node" x="96" y="255" width="310" height="210"/>
+  <text class="micro orange" x="128" y="309">Input</text>
+  <text class="label" x="128" y="356">User request</text>
+  <text class="small" x="128" y="393">question, shoot, persona,</text>
+  <text class="small" x="128" y="421">voice, selected identity</text>
+
+  <path class="line" d="M 420 360 C 474 360, 498 360, 548 360"/>
+
+  <rect class="node-dark" x="560" y="255" width="420" height="210"/>
+  <text class="micro orange" x="596" y="309">Shared conversational stack</text>
+  <text class="label dark-text" x="596" y="356">ASR / LLM / TTS</text>
+  <text class="small dark-small" x="596" y="393">provider routing, voice registry,</text>
+  <text class="small dark-small" x="596" y="421">memory, tools, transport</text>
+
+  <path class="line" d="M 998 360 C 1046 360, 1078 360, 1128 360"/>
+
+  <rect class="node-warn" x="1140" y="255" width="330" height="210"/>
+  <text class="micro orange" x="1174" y="309">Identity contract router</text>
+  <text class="label" x="1174" y="356">Reference + bar</text>
+  <text class="small" x="1174" y="393">canonical identity, full-body</text>
+  <text class="small" x="1174" y="421">detail, latency, provenance</text>
+
+  <path class="line" d="M 1305 470 C 1305 525, 810 512, 660 578"/>
+  <path class="line" d="M 1370 470 C 1370 524, 1120 523, 1076 578"/>
+
+  <rect class="node" x="110" y="590" width="600" height="246"/>
+  <text class="micro orange" x="148" y="642">High-fidelity identity path</text>
+  <text class="label" x="148" y="685">Known or fixed synthetic human</text>
+  <text class="small" x="148" y="724">Canonical face/body state, high-res render,</text>
+  <text class="small" x="148" y="752">realism and continuity gates.</text>
+  <path class="line-muted" d="M 148 768 H 666"/>
+  <text class="small" x="148" y="795">Goal: pass close human inspection, accept slower paths.</text>
+
+  <rect class="node" x="890" y="590" width="600" height="246"/>
+  <text class="micro orange" x="928" y="642">Live interaction path</text>
+  <text class="label" x="928" y="685">Assistant or companion presence</text>
+  <text class="small" x="928" y="724">Low-latency audio-driven renderer over</text>
+  <text class="small" x="928" y="752">an approved synthetic or recorded surface.</text>
+  <path class="line-muted" d="M 928 768 H 1446"/>
+  <text class="small" x="928" y="795">Goal: answer live, disclose limits, preserve continuity.</text>
+</svg>

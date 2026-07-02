@@ -1,0 +1,169 @@
+:root {
+  color-scheme: light;
+  --ink: #111;
+  --muted: #444;
+  --rule: #b8b8b8;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: #f3f3f3;
+}
+
+body {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 56px 64px 72px;
+  background: #fff;
+  color: var(--ink);
+  font-family: "Times New Roman", Times, serif;
+  font-size: 17px;
+  line-height: 1.52;
+}
+
+h1,
+h2,
+h3 {
+  font-family: Arial, Helvetica, sans-serif;
+  letter-spacing: 0;
+}
+
+h1 {
+  margin: 0 0 14px;
+  font-size: 34px;
+  line-height: 1.14;
+}
+
+h2 {
+  margin: 34px 0 12px;
+  padding-top: 14px;
+  border-top: 1px solid var(--rule);
+  font-size: 21px;
+  line-height: 1.18;
+}
+
+h3 {
+  margin: 24px 0 8px;
+  font-size: 17px;
+  line-height: 1.2;
+}
+
+p,
+ol,
+ul,
+blockquote {
+  margin: 0 0 14px;
+}
+
+ol,
+ul {
+  padding-left: 1.45em;
+}
+
+li {
+  margin-bottom: 5px;
+}
+
+blockquote {
+  padding-left: 1.1em;
+  border-left: 3px solid var(--rule);
+  color: var(--muted);
+}
+
+em {
+  color: #222;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 22px auto 8px;
+  border: 1px solid #d0d0d0;
+  background: #fff;
+}
+
+p:has(img) {
+  margin: 22px 0 6px;
+}
+
+h1 + p,
+h1 + p + p {
+  margin-bottom: 8px;
+  color: var(--muted);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 13px;
+  line-height: 1.35;
+}
+
+h2#abstract + p {
+  font-size: 16px;
+  line-height: 1.45;
+}
+
+h2#references ~ p {
+  padding-left: 2.6em;
+  text-indent: -2.6em;
+  font-size: 14px;
+  line-height: 1.32;
+}
+
+@page {
+  margin: 0.72in;
+}
+
+@media print {
+  html {
+    background: #fff;
+  }
+
+  body {
+    max-width: none;
+    padding: 0;
+    font-size: 10.8pt;
+    line-height: 1.36;
+  }
+
+  h1 {
+    font-size: 22pt;
+  }
+
+  h2 {
+    break-after: avoid;
+    font-size: 13.5pt;
+  }
+
+  h3 {
+    break-after: avoid;
+    font-size: 11.5pt;
+  }
+
+  h2#references {
+    break-before: page;
+  }
+
+  img {
+    max-height: 4.8in;
+    page-break-inside: avoid;
+  }
+
+  h2#references ~ p {
+    margin-bottom: 4pt;
+    font-size: 8.9pt;
+    line-height: 1.16;
+  }
+}
+
+@media (max-width: 760px) {
+  body {
+    padding: 34px 24px 52px;
+    font-size: 16px;
+  }
+
+  h1 {
+    font-size: 28px;
+  }
+}
