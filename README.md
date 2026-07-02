@@ -10,6 +10,7 @@ Working paper + peer-review manuscript on **reference-relative believability**: 
 |---|---|
 | `reference-relative-believability.md` | **Portfolio / research-note** essay (narrative register). |
 | `reference-relative-believability-peer.md` | **Submission** manuscript (formal: related work, hypotheses H1–H6, evaluation protocol). |
+| `reference-relative-believability-peer-anon.md` | **Anonymized** double-blind review copy of the submission manuscript (author + self-references stripped). Build with `build_peer_anon.ps1`. |
 
 The `.md` files are the source of truth. HTML, PDF, and `arxiv/*.tex` are generated build artifacts.
 

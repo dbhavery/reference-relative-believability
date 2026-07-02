@@ -50,10 +50,12 @@ virtual-humans/conversational homes.
 
 ## Prep before a reviewed venue
 
-- **Anonymize** a review copy: most tracks require double-blind. Strip
-  "D. B. Havery" and soften first-person self-references ("a private Avatar
-  Engine" → neutral phrasing) for the submitted PDF; keep the named version
-  for arXiv/portfolio.
+- **Anonymize** a review copy: most tracks require double-blind. **Done** —
+  `reference-relative-believability-peer-anon.*` is the anonymized copy
+  (author byline removed, "private Avatar Engine" self-references
+  genericized); build with `build_peer_anon.ps1`. Submit the anon PDF; keep
+  the named version for arXiv/portfolio. Re-check against the specific venue's
+  anonymization policy before upload.
 - **Page/format:** match the venue template (IVA = ACM SigConf, 4–8 pp;
   IEEE VR = IEEE VGTC). The Pandoc `.tex` is a starting point, not final format.
 - **ACM authorship note:** ACM venues (e.g. CUI) bar AI systems as authors or
