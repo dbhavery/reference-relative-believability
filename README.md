@@ -1,8 +1,26 @@
 # Reference-relative believability in photoreal human avatars
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21138188.svg)](https://doi.org/10.5281/zenodo.21138188)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
 Working paper + peer-review manuscript on **reference-relative believability**: the claim that a photoreal avatar's quality is judged against the *reference* implied by its task — a viewer's memory of a known real person, a system's canonical identity state for a persistent synthetic character, or the broad human category for a one-off stranger — not against pixels alone. The design consequence is an identity-contract router that splits a high-fidelity identity path from a low-latency live-interaction path.
 
-*Author: D. B. Havery.*
+*Author: D. B. Havery.* Published on Zenodo: **[10.5281/zenodo.21138188](https://doi.org/10.5281/zenodo.21138188)**.
+
+## How to cite
+
+> D. B. Havery, "Reference-relative believability in photoreal human avatars: synthetic identity as a systems constraint," Zenodo, 2026. doi:10.5281/zenodo.21138188.
+
+```bibtex
+@misc{havery2026reference,
+  author    = {Havery, Donald B.},
+  title     = {Reference-relative believability in photoreal human avatars: synthetic identity as a systems constraint},
+  year      = {2026},
+  publisher = {Zenodo},
+  doi       = {10.5281/zenodo.21138188},
+  url       = {https://doi.org/10.5281/zenodo.21138188}
+}
+```
 
 ## Two versions
 
