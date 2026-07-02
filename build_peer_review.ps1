@@ -61,6 +61,11 @@ pandoc $arxivMd `
 
 Remove-Item -Path $arxivMd -Force
 
+# Make the arXiv package self-contained: the .tex references assets/two-tier-avatar-engine.png
+$arxivAssets = Join-Path $arxivDir "assets"
+New-Item -ItemType Directory -Force -Path $arxivAssets | Out-Null
+Copy-Item -Path $figurePng -Destination (Join-Path $arxivAssets "two-tier-avatar-engine.png") -Force
+
 Write-Host "Built peer-review manuscript:"
 Write-Host "  $html"
 Write-Host "  $pdf"
